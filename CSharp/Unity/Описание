@@ -1,0 +1,117 @@
+QWERTY - Режимы представления
+F - фокус (курсор в поле сцены)
+Alt + left mouse - смещение угла обзора камеры
+
+**Слева** и **справа** с помощью: **A** и **D**
+
+**Вперед** и **назад,** используя: **W** и **S**
+
+**Вниз** и **вверх** с помощью: **Q** и **E**
+
+right mouse + WASD - смещение камеры в вперед/назад/лево/право
+right mouse + QE - смещение камеры в верх/низ
+... + Shift - перемещения происходят быстрее
+
+
+
+Alt + Enter - авторазвертка case
+F7 - компиляция; позволяет обнаружить ошибки ранее перехода в Unity
+
+
+
+// Частота обновления кадров 
+
+QualitySettings.vSyncCount = 0;
+  Application.targetFrameRate = 10;
+
+// Направление по оси
+
+float horizontal = Input.GetAxis("Horizontal");
+
+
+Доступ к компонентам:
+Текущий      - GetComponent
+Родительский - GetComponentInParent
+Дочерний     - GetComponentInChildren
+
+
+
+Методы компонента:
+Awake - вызывается сразу после создания экземпляра объекта в сцене
+OnEnable
+Start - Вызывается перед первым вызовом метода Update
+Update - Вызывается для каждого кадра пока активны комонент и объект компонента
+LateUpdate - будет вызван сразу после тога как завершатся все вызовы Update
+FixedUpdate - вызываетя фиксированное число раз в секунду
+
+
+
+Копирование
+
+```c#
+public GameObject myPrefab;
+void Start() {
+ // Создать новую копию объекта myPrefab
+ // и поместить его в ту же позицию, где находится объект this
+ var newObject = (GameObject)Instantiate(myPrefab);
+ newObject.transform.position = this.transform.position;
+}
+```
+
+Метод Instantiate возвращает значение типа Object, не GameObject. Чтобы использовать его как экземпляр GameObject, требуется выполнить приведение типа.
+
+Метод Instantiate возвращает значение типа Object, не GameObject. Чтобы использовать его как экземпляр GameObject, требуется выполнить приведение типа.
+
+
+
+**Кватернионы** - это математические операторы, которые могут выражать вращение, но все, что вам нужно здесь помнить, это то, что **Quaternion.identity** означает «без вращения».
+
+
+
+**Vector3.Distance (a, b)** -расстояния между **позицией a** и **позицией b**
+
+transform.position.magnitude > 1000.0f
+
+
+
+rigidbody2D.simulated = false;
+
+rigidbody2D.MovePosition(position);
+
+rigidbody2d.AddForce(direction * force);
+
+
+
+Mathf.Clamp(currentHealth + amount, 0, maxHealth);
+
+Mathf.Approximately(move.x, 0.0f)
+
+
+
+
+
+Создание объекта с нуля
+
+```c#
+// Создать новый игровой объект; он появится в иерархии
+// под именем "My New GameObject"
+var newObject = new GameObject("My New GameObject");
+// Добавить в него новый компонент SpriteRenderer
+var renderer = newObject.AddComponent<SpriteRenderer>();
+// Определить спрайт, который должен отображать новый SpriteRenderer
+renderer.sprite = myAwesomeSprite;
+```
+
+
+
+Уничтожение объектов
+
+Чтобы удалить объект из сцены, вызовите его методом Destroy:
+
+```c#
+// Удалить игровой объект, к которому подключен данный сценарий
+Destroy(this.gameObject);
+```
+
+Метод Destroy работает и с компонентами, и с игровыми объектами.
+Если в вызов Destroy передать ссылку this, которая ссылается на компонент текущего сценария, он удалит не игровой объект, а компонент с данным сценарием, подключенный к игровому объекту. Игровой объект останется в сцене, но уже без данного сценария.
