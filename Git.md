@@ -28,9 +28,7 @@ https://habr.com/ru/company/skillbox/blog/442260/
 
 https://habr.com/ru/post/273897/
 
-```1с
 
-```
 
 
 
